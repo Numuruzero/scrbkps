@@ -40,5 +40,6 @@ while true do
     os.sleep(10) -- Wait for 10 seconds before checking again
 end
 
--- TODO: Add logic for other crops, refueling
+-- TODO: Add logic for other crops, refueling, and replanting
 -- TODO: Create tree farming logic to create a sustainable fuel source
+-- inventory.list()
