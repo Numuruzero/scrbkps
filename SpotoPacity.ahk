@@ -17,7 +17,11 @@ WinTog := false
 ^NumpadMult:: { ;SET HOTKEY TO RESET SELECTED WINDOW
     global WinId, WinTog
     if WinTog { ;IF CLICK-THROUGH IS ENABLED, DISABLE IT FIRST
-        WinSetExStyle("-0x20", WinId)
+        try {
+            WinSetExStyle("-0x20", WinId)
+        } catch {
+            ; Throws an error if the window no longer exists, but we can ignore that since we're resetting the ID anyway
+        }
         WinTog := !WinTog
     }
     if (WinId = 1)
