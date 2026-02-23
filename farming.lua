@@ -16,7 +16,7 @@ end
 function decideMove()
     local success, data = turtle.inspectUp()
     if success then
-        if data.name == "minecraft:stone" then
+        if data.name == "minecraft:glass" then -- Glass being the path forward so we can see below. Maybe revise the other pathing blocks to use color instead of different materials.
             turtle.forward()
         elseif data.name == "minecraft:chest" then
             -- Refuel logic here
@@ -39,3 +39,6 @@ while true do
     farmWheat()
     os.sleep(10) -- Wait for 10 seconds before checking again
 end
+
+-- TODO: Add logic for other crops, refueling
+-- TODO: Create tree farming logic to create a sustainable fuel source
