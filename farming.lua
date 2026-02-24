@@ -42,6 +42,8 @@ end
 
 -- TODO: Add logic for other crops, refueling, and replanting
 -- TODO: Create tree farming logic to create a sustainable fuel source
+-- TODO: Inventory management to handle harvested crops and fuel
+-- Also, a merged inventory system for making "larger" chests?
 -- inventory.list()
 
 function printTable(table, subt)
