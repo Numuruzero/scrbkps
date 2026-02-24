@@ -43,3 +43,9 @@ end
 -- TODO: Add logic for other crops, refueling, and replanting
 -- TODO: Create tree farming logic to create a sustainable fuel source
 -- inventory.list()
+
+function printTable(table)
+    for key, value in pairs(table) do
+        print(key .. ": " .. tostring(value))
+    end
+end
