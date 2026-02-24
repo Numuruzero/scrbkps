@@ -44,8 +44,14 @@ end
 -- TODO: Create tree farming logic to create a sustainable fuel source
 -- inventory.list()
 
-function printTable(table)
+function printTable(table, subt)
+    subt = subt or false
     for key, value in pairs(table) do
         print(key .. ": " .. tostring(value))
+        if subt and type(value) == "table" then
+            print("--Begin table: " .. key .. "--")
+            printTable(value, true)
+            print("--End table: " .. key .. "--")
+        end
     end
 end
