@@ -24,9 +24,11 @@ function refuelIfNeeded()
             if fuelSlot then
                 turtle.select(fuelSlot)
                 turtle.refuel()
-                print("Refueled using slot " .. fuelSlot .. " after sucking up. New fuel level: " .. turtle.getFuelLevel())
+                print("Refueled using slot " ..
+                fuelSlot .. " after sucking up. New fuel level: " .. turtle.getFuelLevel())
             else
                 print("No fuel found in inventory or above. Please refuel manually.")
+            end
         end
     else
         print("Fuel level sufficient: " .. fuelLevel)
