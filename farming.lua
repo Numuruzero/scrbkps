@@ -57,3 +57,13 @@ function printTable(table, subt)
         end
     end
 end
+
+-- Seeing inventory on a PC, e.g.
+-- peripheral.call("right","list")
+-- Return e.g. {{count = 1, name = "minecraft:wheat"},{count = 1, name = "minecraft:wheat_seeds"},nil,{count = 1, name = "minecraft:dirt"}}
+-- If I understand correctly this should mean that the key corresponds to the actual slot in the inventory
+-- Two or more computers can connect to the same peripheral
+
+-- For turtles:
+-- turtle.getItemDetail(slot)
+-- Returns something like the list function above but only one slot at a time
