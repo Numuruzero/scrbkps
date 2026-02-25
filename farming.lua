@@ -60,6 +60,8 @@ function findSeed(plantType)
     -- Wheat has seeds, but other plants like carrots and potatoes are planted using the item itself, so we need to adjust for that
     if plantType == "minecraft:wheat" then
         plantType = "minecraft:wheat_seeds"
+    elseif plantType == "minecraft:beetroots" then
+        plantType = "minecraft:beetroot_seeds"
     end
     for slot = 1, 16 do
         local item = turtle.getItemDetail(slot)
@@ -70,7 +72,7 @@ function findSeed(plantType)
     return nil -- No seeds found
 end
 
-function farmWheat()
+function tendCrop()
     local success, data = turtle.inspectDown()
     if success then
         -- TODO: Add support for other crops, which may require checking for different growth stages. Maybe able to use some kind of "farmable" tag?
@@ -93,8 +95,7 @@ function farmWheat()
 end
 
 while true do
-    farmWheat()
-    os.sleep(10) -- Wait for 10 seconds before checking again
+    tendCrop()
 end
 
 -- TODO: Add logic for other crops, refueling, and replanting
