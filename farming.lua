@@ -40,16 +40,17 @@ function decideMove()
     -- NEW PLAN the old design was not well thought out, we're doing halfsies
     -- R = right, L = left, - = forward, T = turnaround
     -- R-------R
-    -- R---L---R
-    -- R---L---R
+    -- R--LL---R
+    -- R--LL---R
     -- R-------R
     -- OR, FOR ODD ROWS
     -- R-------R
-    -- R---L---R
-    -- R---L---R
-    -- R---T---R
+    -- R--LL---R
+    -- R--LL---R
+    -- R--TT---R
     -- R-------R
     -- The middle L doesn't have to be truly in the middle though it would be more satisfying aesthetically
+    -- Unfortunately we need two blocks in the middle so the paths don't cross
     -- TODO: Add special "deposit harvested items" logic
     -- Maybe rather than a special turn block, have it be a special forward block that moves forward first, does deposit logic, then moves on
     local success, data = turtle.inspectUp()
