@@ -37,11 +37,28 @@ end
 
 function decideMove()
     -- TODO: Add "last row" logic in case there's an odd number of rows
+    -- NEW PLAN the old design was not well thought out, we're doing halfsies
+    -- R = right, L = left, - = forward, T= turnaround
+    -- R-------R
+    -- R---L---R
+    -- R---L---R
+    -- R-------R
+    -- OR, FOR ODD ROWS
+    -- T-------R
+    -- R---L---R
+    -- R---L---R
+    -- R---L---R
+    -- R-------T
+    -- The middle L doesn't have to be truly in the middle though it would be more satisfying aesthetically
     -- TODO: Add special "deposit harvested items" logic
+    -- Maybe rather than a special turn block, have it be a special forward block that moves forward first, does deposit logic, then moves on
     local success, data = turtle.inspectUp()
     if success then
         if data.name == "minecraft:glass" then -- Glass being the path forward so we can see below. Maybe revise the other pathing blocks to use color instead of different materials.
             turtle.forward()
+        elseif data.name == "minecraft:green_stained_glass" then
+            turtle.forward()
+            -- Deposit logic here, e.g. checking inventory for harvested items and dropping them into a chest above
         elseif data.name == "minecraft:chest" then
             -- Refuel logic here
             refuelIfNeeded()
@@ -51,6 +68,10 @@ function decideMove()
             turtle.forward()
         elseif data.name == "minecraft:yellow_stained_glass" then
             turtle.turnLeft()
+            turtle.forward()
+        elseif data.name == "minecraft:blue_stained_glass" then
+            turtle.turnRight()
+            turtle.turnRight()
             turtle.forward()
         else -- Add another block to indicate that items should be dropped into a chest ahead
             print("Unknown block above: " .. data.name)
