@@ -98,6 +98,7 @@ end
 
 while true do
     tendCrop()
+    decideMove()
 end
 
 -- TODO: Add logic for other crops, refueling, and replanting
@@ -106,17 +107,17 @@ end
 -- Also, a merged inventory system for making "larger" chests?
 -- inventory.list()
 
-function printTable(table, subt)
-    subt = subt or false
-    for key, value in pairs(table) do
-        print(key .. ": " .. tostring(value))
-        if subt and type(value) == "table" then
-            print("--Begin table: " .. key .. "--")
-            printTable(value, true)
-            print("--End table: " .. key .. "--")
-        end
-    end
-end
+-- function printTable(table, subt)
+--     subt = subt or false
+--     for key, value in pairs(table) do
+--         print(key .. ": " .. tostring(value))
+--         if subt and type(value) == "table" then
+--             print("--Begin table: " .. key .. "--")
+--             printTable(value, true)
+--             print("--End table: " .. key .. "--")
+--         end
+--     end
+-- end
 
 -- Seeing inventory on a PC, e.g.
 -- peripheral.call("right","list")
