@@ -37,6 +37,7 @@ end
 
 function decideMove()
     -- TODO: Add "last row" logic in case there's an odd number of rows
+    -- TODO: Add special "deposit harvested items" logic
     local success, data = turtle.inspectUp()
     if success then
         if data.name == "minecraft:glass" then -- Glass being the path forward so we can see below. Maybe revise the other pathing blocks to use color instead of different materials.
