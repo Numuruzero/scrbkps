@@ -1,4 +1,4 @@
 ^!j:: {
-    script = %clipboard%
+    script = A_Clipboard
     SendInput(script)
 }
