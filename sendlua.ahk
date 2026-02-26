@@ -1,4 +1,5 @@
-^!j:: {
-    script = A_Clipboard
-    SendInput script
-}
+^!j::
+    {
+        script = A_Clipboard
+        SendInput script
+    }
