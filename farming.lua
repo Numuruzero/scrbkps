@@ -25,7 +25,7 @@ function refuelIfNeeded()
                 turtle.select(fuelSlot)
                 turtle.refuel()
                 print("Refueled using slot " ..
-                fuelSlot .. " after sucking up. New fuel level: " .. turtle.getFuelLevel())
+                    fuelSlot .. " after sucking up. New fuel level: " .. turtle.getFuelLevel())
             else
                 print("No fuel found in inventory or above. Please refuel manually.")
             end
@@ -44,10 +44,10 @@ function decideMove()
             -- Refuel logic here
             refuelIfNeeded()
             turtle.forward()
-        elseif data.name == "minecraft:diorite" then
+        elseif data.name == "minecraft:white_stained_glass" then
             turtle.turnRight()
             turtle.forward()
-        elseif data.name == "minecraft:andesite" then
+        elseif data.name == "minecraft:yellow_stained_glass" then
             turtle.turnLeft()
             turtle.forward()
         else -- Add another block to indicate that items should be dropped into a chest ahead
@@ -78,7 +78,7 @@ function tendCrop()
     local success, data = turtle.inspectDown()
     if success then
         -- TODO: Add support for other crops, which may require checking for different growth stages. Maybe able to use some kind of "farmable" tag?
-        if data.name == "minecraft:wheat" and data.state.age == 7 then
+        if data.tags["minecraft:crops"] and data.state.age == 7 then
             turtle.digDown()
             turtle.suckDown()
             local seedSlot = findSeed(data.name)
