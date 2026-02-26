@@ -1,5 +1,5 @@
 ^!j::
     {
-        script = A_Clipboard
+        script := A_Clipboard
         SendInput script
     }
