@@ -38,17 +38,17 @@ end
 function decideMove()
     -- TODO: Add "last row" logic in case there's an odd number of rows
     -- NEW PLAN the old design was not well thought out, we're doing halfsies
-    -- R = right, L = left, - = forward, T= turnaround
+    -- R = right, L = left, - = forward, T = turnaround
     -- R-------R
     -- R---L---R
     -- R---L---R
     -- R-------R
     -- OR, FOR ODD ROWS
-    -- T-------R
+    -- R-------R
     -- R---L---R
     -- R---L---R
-    -- R---L---R
-    -- R-------T
+    -- R---T---R
+    -- R-------R
     -- The middle L doesn't have to be truly in the middle though it would be more satisfying aesthetically
     -- TODO: Add special "deposit harvested items" logic
     -- Maybe rather than a special turn block, have it be a special forward block that moves forward first, does deposit logic, then moves on
