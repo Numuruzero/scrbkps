@@ -1,6 +1,9 @@
 -- TODO: Add refueling functionality
 -- TODO: Add dropoff functionality
 -- I can probably add a chest at the end of the lane and have the turtle drop off, or have it refuel in the middle of determineMove
+-- TODO: Add suck functionality to pick up saplings and logs, or just leave them on the ground for the player to pick up
+-- May need an additional cleaner bot for items that drop outside the fence
+-- Need to add glowstone to the farm so the torch spaces won't have items fall into them
 
 function plantSapling()
     for slot = 1, 16 do
