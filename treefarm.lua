@@ -9,7 +9,7 @@ function plantSapling()
     end
 end
 
-function farmTree(dir)
+function farmTree()
     turtle.dig()
     turtle.forward()
     while true do
@@ -26,11 +26,6 @@ function farmTree(dir)
     end
     plantSapling()
     turtle.back()
-    if dir == "right" then
-        turtle.turnLeft()
-    else
-        turtle.turnRight()
-    end
 end
 
 function determineMove()
@@ -52,21 +47,29 @@ function determineMove()
 end
 
 function farmRows()
+    -- Assuming we start facing towards the far fence, we check for trees on the left and right before moving forward
     turtle.turnLeft()
     local success, data = turtle.inspect()
     if success and data.name == "minecraft:birch_log" then
-        farmTree("left")
+        farmTree()
     end
+    -- farmTree will leave us facing the way we were and in the same place, so we have to turn all the way around to check the tree on the right
+    turtle.turnRight()
     turtle.turnRight()
     success, data = turtle.inspect()
     if success and data.name == "minecraft:birch_log" then
-        farmTree("right")
+        farmTree()
     end
+    -- This should reorient us back down the lane
+    turtle.turnLeft()
+    -- We move forward once, which will put us in a non-tree lane
     turtle.forward()
+    -- Check if we're at the end of the lane
     local blocked = turtle.detect()
     if blocked then
         determineMove()
     else
+        -- If we're not at the end of the lane, move forward again to check the next tree lane
         turtle.forward()
     end
 end
