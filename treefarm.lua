@@ -32,15 +32,33 @@ function determineMove()
     if nextTurn == "right" then
         nextTurn = "left"
         turtle.turnRight()
-        turtle.forward()
-        turtle.forward()
+        isBlocked = turtle.detect()
+        if isBlocked then
+            -- If the path is blocked, we move back and reverse the direction
+            turtle.back()
+            turtle.back()
+            nextTurn = "right"
+        else
+            -- If the path is not blocked, we move forward and turn right to continue farming
+            turtle.forward()
+            turtle.forward()
+        end
         turtle.turnRight()
         turtle.forward()
     else
         nextTurn = "right"
         turtle.turnLeft()
-        turtle.forward()
-        turtle.forward()
+        isBlocked = turtle.detect()
+        if isBlocked then
+            -- If the path is blocked, we move back and reverse the direction
+            turtle.back()
+            turtle.back()
+            nextTurn = "left"
+        else
+            -- If the path is not blocked, we move forward and turn left to continue farming
+            turtle.forward()
+            turtle.forward()
+        end
         turtle.turnLeft()
         turtle.forward()
     end
