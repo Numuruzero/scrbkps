@@ -35,6 +35,17 @@ function refuelIfNeeded()
     end
 end
 
+function depositItems()
+    for slot = 1, 16 do
+        local item = turtle.getItemDetail(slot)
+        if item and (item.name ~= "minecraft:charcoal" or item.name ~= "minecraft:coal") then
+            turtle.select(slot)
+            turtle.drop() -- Drop harvested items into chest in front
+            print("Deposited " .. item.count .. " of " .. item.name .. " from slot " .. slot)
+        end
+    end
+end
+
 function decideMove()
     -- TODO: Add "last row" logic in case there's an odd number of rows
     -- NEW PLAN the old design was not well thought out, we're doing halfsies
@@ -57,9 +68,10 @@ function decideMove()
     if success then
         if data.name == "minecraft:glass" then -- Glass being the path forward so we can see below. Maybe revise the other pathing blocks to use color instead of different materials.
             turtle.forward()
-        elseif data.name == "minecraft:green_stained_glass" then
+        elseif data.name == "minecraft:black_stained_glass" then
             turtle.forward()
             -- Deposit logic here, e.g. checking inventory for harvested items and dropping them into a chest above
+            depositItems()
         elseif data.name == "minecraft:chest" then
             -- Refuel logic here
             refuelIfNeeded()
