@@ -1,3 +1,7 @@
+-- TODO: Add refueling functionality
+-- TODO: Add dropoff functionality
+-- I can probably add a chest at the end of the lane and have the turtle drop off, or have it refuel in the middle of determineMove
+
 function plantSapling()
     for slot = 1, 16 do
         local item = turtle.getItemDetail(slot)
@@ -66,28 +70,36 @@ end
 
 function farmRows()
     -- Assuming we start facing towards the far fence, we check for trees on the left and right before moving forward
+    print("Checking tree on the left")
     turtle.turnLeft()
     local success, data = turtle.inspect()
     if success and data.name == "minecraft:birch_log" then
         farmTree()
     end
     -- farmTree will leave us facing the way we were and in the same place, so we have to turn all the way around to check the tree on the right
+    print("Reorienting...")
     turtle.turnRight()
+    print("Checking tree on the right")
     turtle.turnRight()
     success, data = turtle.inspect()
     if success and data.name == "minecraft:birch_log" then
         farmTree()
     end
     -- This should reorient us back down the lane
+    print("Reorienting...")
     turtle.turnLeft()
     -- We move forward once, which will put us in a non-tree lane
+    print("Moving forward to the next lane...")
     turtle.forward()
     -- Check if we're at the end of the lane
-    local blocked = turtle.detect()
-    if blocked then
+    print("Checking for end of lane...")
+    local isBlocked = turtle.detect()
+    if isBlocked then
+        print("End of lane detected, determining next move...")
         determineMove()
     else
         -- If we're not at the end of the lane, move forward again to check the next tree lane
+        print("Not blocked, moving forward to the next lane...")
         turtle.forward()
     end
 end
