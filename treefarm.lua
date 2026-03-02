@@ -89,11 +89,6 @@ function determineMove()
     if success and data.name == "minecraft:chest" then
         refuelIfNeeded()
         dropOffItems()
-    else
-        print("No tree detected at the end of the lane, determining next move...")
-        refuelIfNeeded()
-        dropOffItems()
-        makeNextMove()
     end
     if nextTurn == "right" then
         nextTurn = "left"
