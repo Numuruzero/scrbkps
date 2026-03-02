@@ -85,6 +85,16 @@ function farmTree()
 end
 
 function determineMove()
+    local success, data = turtle.inspectDown()
+    if success and data.name == "minecraft:chest" then
+        refuelIfNeeded()
+        dropOffItems()
+    else
+        print("No tree detected at the end of the lane, determining next move...")
+        refuelIfNeeded()
+        dropOffItems()
+        makeNextMove()
+    end
     if nextTurn == "right" then
         nextTurn = "left"
         turtle.turnRight()
