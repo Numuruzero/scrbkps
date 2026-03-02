@@ -59,6 +59,7 @@ function plantSapling()
         local item = turtle.getItemDetail(slot)
         if item and item.name == "minecraft:birch_sapling" then
             turtle.select(slot)
+            turtle.up()
             turtle.placeDown()
             return true
         end
@@ -82,6 +83,7 @@ function farmTree()
     end
     plantSapling()
     turtle.back()
+    turtle.down()
 end
 
 function determineMove()
