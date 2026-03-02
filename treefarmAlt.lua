@@ -1,3 +1,5 @@
+-- Alternate version of tree farm which has the turtle float one block above the ground.
+-- This should keep the turtle from getting stuck on torches and allow it to suck down for sticks and saplings
 -- TODO: Add suck functionality to pick up saplings and logs, or just leave them on the ground for the player to pick up
 -- Also todo, exclude saplings from the drop off
 -- May need an additional cleaner bot for items that drop outside the fence
