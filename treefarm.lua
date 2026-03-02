@@ -46,7 +46,7 @@ function dropOffItems()
     print("Dropping off items...")
     for slot = 1, 16 do
         local item = turtle.getItemDetail(slot)
-        if item and (item.name ~= "minecraft:coal" and item.name ~= "minecraft:charcoal") then
+        if item and (item.name ~= "minecraft:coal" and item.name ~= "minecraft:charcoal" and item.name ~= "minecraft:birch_sapling") then
             turtle.select(slot)
             turtle.dropDown()
             print("Dropped " .. item.count .. " of " .. item.name .. " from slot " .. slot)
