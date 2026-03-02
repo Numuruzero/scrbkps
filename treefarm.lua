@@ -5,6 +5,55 @@
 -- May need an additional cleaner bot for items that drop outside the fence
 -- Need to add glowstone to the farm so the torch spaces won't have items fall into them
 
+function findFuel()
+    for slot = 1, 16 do
+        local item = turtle.getItemDetail(slot)
+        if item and (item.name == "minecraft:coal" or item.name == "minecraft:charcoal") then
+            return slot
+        end
+    end
+    return nil -- No fuel found
+end
+
+function refuelIfNeeded()
+    local fuelLevel = turtle.getFuelLevel()
+    if fuelLevel < 100 then -- Arbitrary threshold for refueling
+        print("Fuel level low: " .. fuelLevel .. ". Attempting to refuel.")
+        -- Refueling logic here, e.g. checking inventory for fuel items and using them
+        local fuelSlot = findFuel()
+        if fuelSlot then
+            turtle.select(fuelSlot)
+            turtle.refuel()
+            print("Refueled using slot " .. fuelSlot .. ". New fuel level: " .. turtle.getFuelLevel())
+        else
+            turtle.suckDown() -- Try to suck fuel from below if available
+            fuelSlot = findFuel()
+            if fuelSlot then
+                turtle.select(fuelSlot)
+                turtle.refuel()
+                print("Refueled using slot " ..
+                    fuelSlot .. " after sucking down. New fuel level: " .. turtle.getFuelLevel())
+            else
+                print("No fuel found in inventory or below. Please refuel manually.")
+            end
+        end
+    else
+        print("Fuel level sufficient: " .. fuelLevel)
+    end
+end
+
+function dropOffItems()
+    print("Dropping off items...")
+    for slot = 1, 16 do
+        local item = turtle.getItemDetail(slot)
+        if item and (item.name ~= "minecraft:coal" and item.name ~= "minecraft:charcoal") then
+            turtle.select(slot)
+            turtle.dropDown()
+            print("Dropped " .. item.count .. " of " .. item.name .. " from slot " .. slot)
+        end
+    end
+end
+
 function plantSapling()
     for slot = 1, 16 do
         local item = turtle.getItemDetail(slot)
