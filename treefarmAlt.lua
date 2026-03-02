@@ -5,6 +5,10 @@
 -- May need an additional cleaner bot for items that drop outside the fence
 -- Need to add glowstone to the farm so the torch spaces won't have items fall into them
 
+if turtle.detectDown() then
+    turtle.up()
+end
+
 function findFuel()
     for slot = 1, 16 do
         local item = turtle.getItemDetail(slot)
@@ -26,13 +30,13 @@ function refuelIfNeeded()
             turtle.refuel()
             print("Refueled using slot " .. fuelSlot .. ". New fuel level: " .. turtle.getFuelLevel())
         else
-            turtle.suckDown() -- Try to suck fuel from below if available
+            turtle.suck() -- Try to suck fuel from in front if available
             fuelSlot = findFuel()
             if fuelSlot then
                 turtle.select(fuelSlot)
                 turtle.refuel()
                 print("Refueled using slot " ..
-                    fuelSlot .. " after sucking down. New fuel level: " .. turtle.getFuelLevel())
+                    fuelSlot .. " after sucking. New fuel level: " .. turtle.getFuelLevel())
             else
                 print("No fuel found in inventory or below. Please refuel manually.")
             end
@@ -48,7 +52,7 @@ function dropOffItems()
         local item = turtle.getItemDetail(slot)
         if item and (item.name ~= "minecraft:coal" and item.name ~= "minecraft:charcoal" and item.name ~= "minecraft:birch_sapling") then
             turtle.select(slot)
-            turtle.dropDown()
+            turtle.drop()
             print("Dropped " .. item.count .. " of " .. item.name .. " from slot " .. slot)
         end
     end
@@ -65,11 +69,14 @@ function plantSapling()
             return true
         end
     end
+    return false -- No sapling found
 end
 
 function farmTree()
     turtle.dig()
     turtle.forward()
+    -- We're at ground level+1 so we're going to cut into the tree and then also cut the ground log
+    turtle.digDown()
     while true do
         local success, data = turtle.inspectUp()
         if success and data.name == "minecraft:birch_log" then
@@ -82,13 +89,18 @@ function farmTree()
     while not turtle.detectDown() do
         turtle.down()
     end
-    plantSapling()
+    if plantSapling() then
+        print("Sapling planted successfully.")
+    else
+        print("No sapling found to plant.")
+        turtle.up() -- Failsafe to move us if we didn't do so to plant
+    end
     turtle.back()
-    turtle.down()
+    -- No need to move down since we moved up to plant the sapling
 end
 
 function determineMove()
-    local success, data = turtle.inspectDown()
+    local success, data = turtle.inspect()
     if success and data.name == "minecraft:chest" then
         refuelIfNeeded()
         dropOffItems()
