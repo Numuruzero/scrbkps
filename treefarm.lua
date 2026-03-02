@@ -1,6 +1,3 @@
--- TODO: Add refueling functionality
--- TODO: Add dropoff functionality
--- I can probably add a chest at the end of the lane and have the turtle drop off, or have it refuel in the middle of determineMove
 -- TODO: Add suck functionality to pick up saplings and logs, or just leave them on the ground for the player to pick up
 -- May need an additional cleaner bot for items that drop outside the fence
 -- Need to add glowstone to the farm so the torch spaces won't have items fall into them
@@ -59,6 +56,7 @@ function plantSapling()
         local item = turtle.getItemDetail(slot)
         if item and item.name == "minecraft:birch_sapling" then
             turtle.select(slot)
+            -- Sapling is considered solid so we have to move up and place below us
             turtle.up()
             turtle.placeDown()
             return true
