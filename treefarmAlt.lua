@@ -1,4 +1,6 @@
 -- Alternate version of tree farm which has the turtle float one block above the ground.
+-- Will need a slightly different farm design with a two high fence, may also put the gates elsewhere
+-- Chests should now be on the same level as the turtle instead of below
 -- This should keep the turtle from getting stuck on torches and allow it to suck down for sticks and saplings
 -- TODO: Add suck functionality to pick up saplings and logs, or just leave them on the ground for the player to pick up
 -- Also todo, exclude saplings from the drop off
@@ -112,15 +114,19 @@ function determineMove()
         if isBlocked then
             -- If the path is blocked, we move back and reverse the direction
             turtle.back()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space before moving back
             turtle.back()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
             nextTurn = "right"
         else
             -- If the path is not blocked, we move forward and turn right to continue farming
             turtle.forward()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
             turtle.forward()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
         end
         turtle.turnRight()
-        turtle.forward()
+        turtle.forward() -- farmRows will pick up sucking from here
     else
         nextTurn = "right"
         turtle.turnLeft()
@@ -128,19 +134,24 @@ function determineMove()
         if isBlocked then
             -- If the path is blocked, we move back and reverse the direction
             turtle.back()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
             turtle.back()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
             nextTurn = "left"
         else
             -- If the path is not blocked, we move forward and turn left to continue farming
             turtle.forward()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
             turtle.forward()
+            turtle.suckDown() -- Try to suck any items that may have dropped into the turtle's space after moving back
         end
         turtle.turnLeft()
-        turtle.forward()
+        turtle.forward() -- farmRows will pick up sucking from here
     end
 end
 
 function farmRows()
+    turtle.suckDown() -- Suck any items that may have dropped into the turtle's space
     -- Assuming we start facing towards the far fence, we check for trees on the left and right before moving forward
     print("Checking tree on the left")
     turtle.turnLeft()
@@ -163,6 +174,7 @@ function farmRows()
     -- We move forward once, which will put us in a non-tree lane
     print("Moving forward to the next lane...")
     turtle.forward()
+    turtle.suckDown() -- Suck any items that may have dropped into the turtle's space after moving forward
     -- Check if we're at the end of the lane
     print("Checking for end of lane...")
     local isBlocked = turtle.detect()
